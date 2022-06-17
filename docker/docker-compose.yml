@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  nest:
+    container_name: nest
+    build: 
+      dockerfile: ../Dockerfile
+    image: gusah009/bmeks-tuto-nest:${NEST_TAG}
+    ports:
+      - 3000:3000
+    networks:
+      - bmeks-net
+    depends_on:
+      - mongo
+
+  # spring:
+  #   container_name: spring
+  #   image: gusah009/bmeks-tuto-spring:${SPRING_TAG}
+  #   ports:
+  #     - 8079:8080
+  #   depends_on:
+  #     - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo:${MONGO_TAG}
+    ports:
+      - 27017:27017
+    networks:
+      - bmeks-net
+networks:
+  bmeks-net:
+    driver: bridge
